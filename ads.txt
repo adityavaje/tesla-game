@@ -1,4 +1,1 @@
-# ads.txt for Roadster Loop
-# Add your authorised sellers here, one per line, in this format:
-# <ad system domain>, <publisher ID>, <DIRECT|RESELLER>, <certification authority ID>
-# example (replace the ID with your own): google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+google.com, pub-6450070545443638, DIRECT, f08c47fec0942fa0

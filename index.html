@@ -1,40 +1,62 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>Roadster Loop</title>
-<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css"></head>
-<body data-state="title">
-<canvas id="c"></canvas>
-<div id="hud">
- <div class="stats">
-  <div><b id="h-speed">0</b><i>mph</i></div><div><b id="h-alt">0</b><i>alt ft</i></div>
-  <div><b id="h-air">0.0</b><i>air s</i></div><div><b id="h-rings">0</b><i>rings</i></div><div><b id="h-flips">0</b><i>flips</i></div>
- </div>
- <div class="right"><b id="h-score">0</b><i>score</i><div id="gas"><span id="gasfill"></span></div><i>gas</i></div>
+<meta name="google-adsense-account" content="ca-pub-6450070545443638">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Saira:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<!-- Google AdSense verification / loader snippet (as provided by Google) -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6450070545443638"
+     crossorigin="anonymous"></script>
+<script>
+// H5 Games Ads shim (queues adBreak/adConfig calls until adsbygoogle.js loads).
+// For test ads, add data-adbreak-test="on" to the AdSense script tag above.
+window.adsbygoogle=window.adsbygoogle||[];
+window.adBreak=window.adConfig=function(o){window.adsbygoogle.push(o)};
+</script>
+<script>adConfig({preloadAdBreaks:'on',sound:'on',onReady:function(){}});</script>
+</head>
+<body>
+<div id="game">
+  <div id="lights" hidden><i></i><i></i><i></i><i></i></div>
+  <div id="msg"></div>
+  <div id="hud" hidden>
+    <div class="tl panel"><small>Score</small><b id="score">0</b><small>Best <span id="best">0</span></small></div>
+    <div class="bc panel"><div><b id="speed">0</b> <small>mph</small></div><div class="bar"><i id="gas"></i></div><small>Thruster gas</small><div class="row"><span>Flips <b id="flips">0</b></span><span>Rings <b id="rings">0</b></span></div></div>
+    <div class="gauge l panel"><small>G</small><div class="vbar"><i id="gfill"></i></div><b id="gval">1.0</b></div>
+    <div class="gauge r panel"><small>Alt ft</small><div class="vbar"><i id="afill"></i></div><b id="alt">0</b><small>Sink <span id="sink">0</span></small></div>
+    <div id="callout"></div>
+    <div id="hint">Space: launch + thrust &nbsp; ←/→: rotate &nbsp; M: mute</div>
+  </div>
+  <button id="mute" aria-label="Mute">♪</button>
+  <section id="title" class="overlay panel">
+    <h1>Roadster Loop</h1>
+    <p>Wait for green. Hit the ramp. Spin, thrust, and stick the landing.</p>
+    <button id="start" class="cta">Start</button>
+    <a href="privacy.html">Privacy &amp; ads</a>
+  </section>
+  <section id="results" class="overlay panel" hidden>
+    <h2><span id="grade">A</span> <em id="newbest" hidden>New best</em></h2>
+    <div id="rscore">0</div>
+    <dl>
+      <dt>Reaction</dt><dd id="r_react"></dd><dt>Ramp speed</dt><dd id="r_speed"></dd>
+      <dt>Peak G</dt><dd id="r_g"></dd><dt>Max altitude</dt><dd id="r_alt"></dd>
+      <dt>Airtime</dt><dd id="r_air"></dd><dt>Flips</dt><dd id="r_flips"></dd>
+      <dt>Rings</dt><dd id="r_rings"></dd><dt>Touchdown</dt><dd id="r_td"></dd>
+    </dl>
+    <button id="again" class="cta">Run it again</button>
+  </section>
+  <div id="touch" hidden>
+    <div class="flip"><button id="bl" aria-label="Rotate left">◀</button><button id="br" aria-label="Rotate right">▶</button></div>
+    <button id="bt">Thrust</button>
+  </div>
+  <div id="nogl" class="overlay panel" hidden><h2>WebGL needed</h2><p>Your browser can't run 3D graphics right now. Try updating it, enabling hardware acceleration, or using another browser.</p></div>
 </div>
-<div id="lights"><span></span><span></span><span></span><span></span></div>
-<div id="msg"></div>
-<section id="title" class="panel">
- <h1>Roadster Loop</h1>
- <p class="sub">Launch off the green, ride the quarter-pipe, spin through the rings and stick the landing.</p>
- <ul><li><b>Space / tap</b> launch on green, fire thrusters in the air</li><li><b>&larr; &rarr;</b> rotate in the air</li><li>Land upright, under 39 ft/s</li></ul>
- <button id="start" class="cta">Start</button>
-</section>
-<section id="results" class="panel hidden">
- <div class="top"><div id="grade">A</div><div><div id="newbest" class="badge hidden">NEW BEST</div><div id="r-score" class="big">0</div><i>score</i></div></div>
- <dl>
-  <div><dt>Reaction</dt><dd id="r-react"></dd></div><div><dt>Ramp speed</dt><dd id="r-speed"></dd></div>
-  <div><dt>Peak G</dt><dd id="r-g"></dd></div><div><dt>Max altitude</dt><dd id="r-alt"></dd></div>
-  <div><dt>Airtime</dt><dd id="r-air"></dd></div><div><dt>Flips</dt><dd id="r-flips"></dd></div>
-  <div><dt>Rings</dt><dd id="r-rings"></dd></div><div><dt>Touchdown speed</dt><dd id="r-td"></dd></div>
- </dl>
- <p id="r-best" class="sub"></p>
- <button id="again" class="cta">Run it again</button>
-</section>
-<div class="touch"><button id="bl" aria-label="Rotate left">&#9664;</button><button id="br" aria-label="Rotate right">&#9654;</button></div>
-<div id="flash"></div>
-<footer>Unofficial fan game, not affiliated with Tesla. &middot; <a href="privacy.html">Privacy</a></footer>
+<footer>Unofficial fan game, not affiliated with Tesla.</footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="game.js"></script>
-</body></html>
+</body>
+</html>

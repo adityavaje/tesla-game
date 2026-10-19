@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Roadster Loop</title>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head>
+<body data-state="title">
+<canvas id="c"></canvas>
+<div id="hud">
+ <div class="stats">
+  <div><b id="h-speed">0</b><i>mph</i></div><div><b id="h-alt">0</b><i>alt ft</i></div>
+  <div><b id="h-air">0.0</b><i>air s</i></div><div><b id="h-rings">0</b><i>rings</i></div><div><b id="h-flips">0</b><i>flips</i></div>
+ </div>
+ <div class="right"><b id="h-score">0</b><i>score</i><div id="gas"><span id="gasfill"></span></div><i>gas</i></div>
+</div>
+<div id="lights"><span></span><span></span><span></span><span></span></div>
+<div id="msg"></div>
+<section id="title" class="panel">
+ <h1>Roadster Loop</h1>
+ <p class="sub">Launch off the green, ride the quarter-pipe, spin through the rings and stick the landing.</p>
+ <ul><li><b>Space / tap</b> launch on green, fire thrusters in the air</li><li><b>&larr; &rarr;</b> rotate in the air</li><li>Land upright, under 39 ft/s</li></ul>
+ <button id="start" class="cta">Start</button>
+</section>
+<section id="results" class="panel hidden">
+ <div class="top"><div id="grade">A</div><div><div id="newbest" class="badge hidden">NEW BEST</div><div id="r-score" class="big">0</div><i>score</i></div></div>
+ <dl>
+  <div><dt>Reaction</dt><dd id="r-react"></dd></div><div><dt>Ramp speed</dt><dd id="r-speed"></dd></div>
+  <div><dt>Peak G</dt><dd id="r-g"></dd></div><div><dt>Max altitude</dt><dd id="r-alt"></dd></div>
+  <div><dt>Airtime</dt><dd id="r-air"></dd></div><div><dt>Flips</dt><dd id="r-flips"></dd></div>
+  <div><dt>Rings</dt><dd id="r-rings"></dd></div><div><dt>Touchdown speed</dt><dd id="r-td"></dd></div>
+ </dl>
+ <p id="r-best" class="sub"></p>
+ <button id="again" class="cta">Run it again</button>
+</section>
+<div class="touch"><button id="bl" aria-label="Rotate left">&#9664;</button><button id="br" aria-label="Rotate right">&#9654;</button></div>
+<div id="flash"></div>
+<footer>Unofficial fan game, not affiliated with Tesla. &middot; <a href="privacy.html">Privacy</a></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="game.js"></script>
+</body></html>
